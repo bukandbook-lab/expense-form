@@ -79,23 +79,43 @@ border:none;
 
 <script>
 
-const scriptURL="https://script.google.com/macros/s/AKfycbxGypzpld0NFp0jnyPkJc1SWA88_tWsnm6IDIa2p534vcRXJnprYWqFc1bYnx1oBIGQ/exec"
+const scriptURL="https://script.google.com/macros/s/AKfycbx6VMvnSdlH-bddKUwx54CxB_WNBkOiGEFe1yosyCj4_0SgWcCru3CT-Ry5nz6fqViB/exec"
 
 document.getElementById("form")
-.addEventListener("submit",async e=>{
+.addEventListener("submit", async e => {
 
 e.preventDefault()
 
-let formData=new FormData(e.target)
+const fileInput = document.querySelector('input[name="receipt"]')
+const file = fileInput.files[0]
+
+let base64=""
+
+if(file){
+
+const reader = new FileReader()
+
+base64 = await new Promise(resolve=>{
+reader.onload=()=>resolve(reader.result.split(',')[1])
+reader.readAsDataURL(file)
+})
+
+}
+
+const data = {
+date: e.target.date.value,
+category: e.target.category.value,
+amount: e.target.amount.value,
+file: base64,
+filename: file ? file.name : ""
+}
 
 await fetch(scriptURL,{
 method:"POST",
-body:formData
+body: JSON.stringify(data)
 })
 
 alert("Saved")
-
-e.target.reset()
 
 })
 
