@@ -79,7 +79,7 @@ border:none;
 
 <script>
 
-const scriptURL="https://script.google.com/macros/s/AKfycbx6VMvnSdlH-bddKUwx54CxB_WNBkOiGEFe1yosyCj4_0SgWcCru3CT-Ry5nz6fqViB/exec"
+const scriptURL="https://script.google.com/macros/s/AKfycbyvVi-hPZ6wKqB7C22cdxhGUP5Nl1TbpZuhJsb0pWtS5k_hzYmK_d9UFgM26jPcNrKS/exec"
 
 document.getElementById("form")
 .addEventListener("submit", async e => {
@@ -112,6 +112,10 @@ filename: file ? file.name : ""
 
 await fetch(scriptURL,{
 method:"POST",
+mode:"no-cors",
+headers:{
+"Content-Type":"application/json"
+},
 body: JSON.stringify(data)
 })
 
