@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Expense Entry</title>
+
+<style>
+
+body{
+font-family:Arial;
+max-width:420px;
+margin:auto;
+padding:20px;
+}
+
+label{
+display:block;
+margin-top:12px;
+}
+
+input,select,button{
+width:100%;
+padding:8px;
+margin-top:5px;
+}
+
+button{
+margin-top:18px;
+background:#2d6cdf;
+color:white;
+border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Expense Entry</h3>
+
+<form id="form">
+
+<label>Date</label>
+<input type="date" name="date" required>
+
+<label>Category</label>
+
+<select name="category">
+
+<option>MAKANAN</option>
+<option>GROCERIES</option>
+<option>PENGANGKUTAN</option>
+<option>SHOPPING</option>
+<option>UTILITI</option>
+<option>SERVIS LAIN</option>
+<option>QURAN, KAFA & TUISYEN</option>
+<option>SEWA RUMAH</option>
+<option>PRUBSN</option>
+<option>DENTAL LEGACY</option>
+<option>SHOPPING SITI</option>
+<option>MEDICAL SITI</option>
+<option>LAWYER FEE</option>
+<option>LAIN-LAIN</option>
+
+</select>
+
+<label>Upload Receipt</label>
+<input type="file" name="receipt" accept=".png,.pdf">
+
+<label>Amount (RM)</label>
+<input type="number" name="amount" step="0.01" required>
+
+<button type="submit">Enter</button>
+
+</form>
+
+<script>
+
+const scriptURL="https://script.google.com/macros/s/AKfycbxhQTol3z09m1QgL63avO6gv6W7UYBTg-v8jZH-Ny_7YJLWyg4rh3qoa9dfIqL8faj-/exec"
+
+document.getElementById("form")
+.addEventListener("submit",async e=>{
+
+e.preventDefault()
+
+let formData=new FormData(e.target)
+
+await fetch(scriptURL,{
+method:"POST",
+body:formData
+})
+
+alert("Saved")
+
+e.target.reset()
+
+})
+
+</script>
+
+</body>
+</html>
